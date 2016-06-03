@@ -1,0 +1,47 @@
+#!/bin/bash
+
+cyan=`tput setaf 6`
+red=`tput setaf 1`
+green=`tput setaf 2`
+normal=`tput sgr0`
+
+# Displays current user
+#printf "Current User: %20s \n" "${red}$(whoami)${normal}"
+echo "${cyan}****************************************************************${normal}"
+echo -e -n Current User:
+echo "${red} $(whoami) ${normal}"
+
+# Displays current date
+#printf "Current Date: %20s \n" "${red}$(DATE)${normal}"
+echo -n -e Current Date: 
+echo "${red} $(DATE) ${normal}"
+
+# Display number of users
+echo -n -e Number of Users:
+echo who | grep -c "^"
+echo "${red} $(who | wc -l) ${normal}"
+
+# Display calendar
+echo "${cyan}****************************************************************${normal}"
+echo Calendar
+cal
+
+# Display number of processes under current user
+echo "${cyan}****************************************************************${normal}"
+echo -n Number of processes under current user: 
+ps -u $(whoami) | wc -l
+
+# Display CPU Usage 
+echo "${cyan}****************************************************************${normal}"
+top -l 1 | grep "CPU usage"
+
+# Display Memory Usage
+top -l 1 | grep "PhysMem"
+
+echo -n Available disk space:
+df -H | /usr/bin/awk '/disk1/ {print $4}'
+echo -n Total disk space:
+df -H | /usr/bin/awk '/disk1/ {print $2}'
+echo "${cyan}****************************************************************${normal}"
+
+
